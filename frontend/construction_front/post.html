@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0,  shrink-to-fit=no"/>
+        <link rel="stylesheet" href="/public/css/style.css" /> <!-- à remplacer -->
+        <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+        <title>Groupomania</title>
+        <link href="https://fonts.googleapis.com/css2?family=Shrikhand&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;400;500&display=swap" rel="stylesheet">
+    </head>
+<body>
+  <!-- Composant HEADER -->
+    <header>
+        <img id="header__logo" src="img/icon-left-font.png" alt="Logo de l'entreprise Groupomania">
+            <nav id="navigation">
+                <a class="boutonnav" href="">Mon compte</a>
+                <a class="boutonnav__logout" href="">Déconnexion</a>
+            </nav>
+            </header>
+    </header>
+  <!-- Composant POST -->
+  <div class="post__container">
+    <div class="post">
+      <div class="post__header">
+          <h1 class="post__title">Titre</h1>
+          <p class="post__author">Prénom Nom</p>
+          <p class="post__date">00-00-0000</p>
+      </div>
+           <img class="post__img" src="img/unnamed.gif" alt="pikapika">
+      </div>
+      <div class="post__comm">
+        <p class="post__comm__number">00 Commentaires</p>
+        <p class="post__comm__add">Ajouter un commentaire</p>
+      </div>
+    </div>
+  </div>
+  <!-- Composant BOUTON SUPP -->
+  <div id="post__delete">
+        Supprimer la publication
+  </div>
+  <!-- Composant COMM-->
+  <div class="comm__container">
+        <div class="comm__write">
+            <h2 class="comm__write__title">Commenter la publication</h1>
+            <form method="post" action="traitement.php" class="comm__block">
+                <textarea class="comm__form" name="textarea" placeholder="Ecrivez ici votre commentaire" rows="5" cols="30" minlength="3" maxlength="254"></textarea>
+                <button type="submit" name="button" class="comm__submit">Publier</button>
+            </form>
+        </div>
+        <div class="comm__read">
+            <h2 class="comm__read__title">00 Commentaires</h2>
+            <div class="comm__getOne">
+                <p class="comm__getOne__author">Prénom Nom</p>
+                <p class="comm__getOne__date">00-00-0000</p>
+                <p class="comm__getOne__containt">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean sem eros, rutrum at facilisis ut, vulputate eget neque. Maecenas pellentesque, eros ut iaculis tempor, magna magna dictum ipsum, ac maximus leo metus posuere augue. Mauris eget arcu ullamcorper, mattis neque a, molestie urna. Curabitur viverra, ligula non tempor pretium, quam arcu viverra mauris, nec egestas sem risus in sapien. Suspendisse fringilla metus nec diam dignissim, in laoreet nunc condimentum. Maecenas lectus odio, rhoncus vel facilisis non, pellentesque a purus.</p>
+            </div>
+            <div class="comm__getOne">
+                <p class="comm__getOne__author">Prénom Nom</p>
+                <p class="comm__getOne__date">00-00-0000</p>
+                <p class="comm__getOne__containt">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean sem eros, rutrum at facilisis ut, vulputate eget neque. Maecenas pellentesque, eros ut iaculis tempor, magna magna dictum ipsum, ac maximus leo metus posuere augue. Mauris eget arcu ullamcorper, mattis neque a, molestie urna. Curabitur viverra, ligula non tempor pretium, quam arcu viverra mauris, nec egestas sem risus in sapien. Suspendisse fringilla metus nec diam dignissim, in laoreet nunc condimentum. Maecenas lectus odio, rhoncus vel facilisis non, pellentesque a purus.</p>
+            </div>
+            <div class="comm__getOne">
+                <p class="comm__getOne__author">Prénom Nom</p>
+                <p class="comm__getOne__date">00-00-0000</p>
+                <p class="comm__getOne__containt">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean sem eros, rutrum at facilisis ut, vulputate eget neque. Maecenas pellentesque, eros ut iaculis tempor, magna magna dictum ipsum, ac maximus leo metus posuere augue. Mauris eget arcu ullamcorper, mattis neque a, molestie urna. Curabitur viverra, ligula non tempor pretium, quam arcu viverra mauris, nec egestas sem risus in sapien. Suspendisse fringilla metus nec diam dignissim, in laoreet nunc condimentum. Maecenas lectus odio, rhoncus vel facilisis non, pellentesque a purus.</p>
+            </div>
+        </div>
+  </div>
+  <!-- Composant FOOTER-->
+  <footer>
+    <p class="footer__text">© Groupomania 0000 </p>
+  </footer>
+</body>
+</html>

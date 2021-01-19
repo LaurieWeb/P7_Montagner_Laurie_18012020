@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0,  shrink-to-fit=no"/>
+        <link rel="stylesheet" href="/public/css/style.css" /> <!-- à remplacer -->
+        <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+        <title>Groupomania</title>
+        <link href="https://fonts.googleapis.com/css2?family=Shrikhand&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;400;500&display=swap" rel="stylesheet">
+    </head>
+<body>
+  <!-- Composant logo -->
+    <img class="home__logo" src="img/icon-above-font.svg" alt="Logo de l'entreprise Groupomania">
+  <!-- Composant choix connexion inscription -->
+  <div class="home__buttons">
+    <div class="home__buttons__signin"> S'inscrire</div>
+    <div class="home__buttons__login">Se connecter</div>
+  </div>
+  <!-- Composant inscription -->
+  <form class="signupForm">
+    <div class="form-group">
+      <label class="form-label" for="Nom">Nom</label>
+      <input type="text" class="form-control" id="email" formControlName="email">
+    </div>
+    <div class="form-group">
+      <label class="form-label" for="Prenom">Prénom</label>
+      <input type="text" class="form-control" id="email" formControlName="email">
+    </div>
+    <div class="form-group">
+      <label class="form-label" for="email">E-mail</label>
+      <input type="email" class="form-control" id="email" formControlName="email">
+    </div>
+    <div class="form-group">
+      <label class="form-label" for="password">Mot de passe</label>
+      <input type="password" class="form-control" id="password" formControlName="password">
+    </div>
+    <button class="form__button">S'inscrire</button>
+    <!-- Composant connexion -->
+    <form class="loginForm">
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" class="form-control" id="email" formControlName="email">
+      </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" class="form-control" id="password" formControlName="password">
+      </div>
+      <button class="form__button">Se connecter</button>
+</body>
+</html>

@@ -1,0 +1,366 @@
+$primary-color: #ff0000;
+$secondary-color: #ffd5d7;
+
+body {
+    font-family: Roboto;
+    margin: 0px;
+}
+
+a {
+    text-decoration: none;
+}
+
+// Composants HOME
+
+.home__logo {
+    display: block;
+    margin: auto;
+    width: 80%;
+    max-width: 500px;
+    margin-top: -50px;
+}
+
+.home__buttons {
+    display: block;
+    margin: auto;
+    width: 80%;
+    max-width: 200px;
+    text-align: center;
+    margin-bottom: 50px; // à retirer
+    &__login {
+        background-color: $primary-color;
+        padding: 5px;
+        margin-top: 20px;
+        border-radius: 5px;
+        color: white;
+        font-weight: bolder;
+       transition: all 250ms;
+        &:hover {
+            background-color: lighten($color: $primary-color, $amount: 10);
+            box-shadow: 0px 0px 4px 0px #6f7070;
+        }
+    }
+    &__signin {
+        background-color: $secondary-color;
+        padding: 5px;
+        border-radius: 5px;
+        transition: all 250ms;
+        &:hover {
+            box-shadow: 0px 0px 4px 0px #6f7070;
+            background-color: darken($color: $secondary-color, $amount: 10);
+        }
+    }
+}
+
+.signupForm {
+    display: block;
+    margin: auto;
+    width: 80%;
+    max-width: 200px;
+}
+
+.form-control {
+    display: block;
+    border-radius: 5px;
+    border: 1px solid $secondary-color;
+    margin-bottom: 10px;
+    width: 100%;
+    padding: 3px;
+    box-sizing: border-box;
+}
+
+.form-label {
+    display: block;
+    margin-bottom: 5px;
+    text-align: left;
+}
+
+.form__button {
+    text-decoration: none;
+    background-color: $primary-color;
+    padding: 5px;
+    margin-top: 20px;
+    border-radius: 5px;
+    color: white;
+    font-weight: bolder;
+    transition: all 250ms;
+    width: 100%;
+    border: none;
+    margin-bottom: 50px; // à supprimer
+    &:hover {
+        background-color: lighten($color: $primary-color, $amount: 10);
+        box-shadow: 0px 0px 4px 0px #6f7070;
+    }
+}
+
+// Composant HEADER
+
+header {
+	display: grid;
+	grid-template-columns: auto auto auto 324px;
+	grid-template-areas:  "logo . . navigation ";
+    border-bottom: 2px solid $secondary-color;
+    margin-bottom: 30px;
+    position: sticky;
+    top: 0px;
+    background-color: white;
+    z-index: 1;
+    @media screen and (max-width: 659px) {
+        display: grid;
+		width: 100%;
+		grid-template-columns: 50% 50%;
+		grid-template-areas:  "logo logo"
+        		"navigation navigation";
+    }
+}
+
+#header__logo {
+	grid-area: logo;
+    width: 100%;
+    min-width: 150px;
+    max-width: 300px;
+    @media screen and (max-width: 659px) {
+        margin: auto;
+    }
+}
+
+#navigation
+{
+	display: flex;
+	grid-area: navigation;
+}
+
+.boutonnav {
+	display: block;
+	width: 162px;
+	margin: auto;
+	text-align: center;
+    &:hover {
+     color: $primary-color!important;   
+    }
+    &:visited {
+        text-decoration: none;
+        color: black;
+    }
+    &__logout {
+        display: block;
+        width: 162px;
+        margin: auto;
+        text-align: center;
+        border-left: 1px solid $secondary-color;
+        &:hover {
+            color: $primary-color!important;   
+           }
+        &:visited {
+            text-decoration: none;
+            color: black;
+        }
+        @media screen and (max-width: 659px) {
+            width: 50%;
+            padding-top: 20px;
+            padding-bottom: 20px;
+        }
+    }
+    @media screen and (max-width: 659px) {
+        width: 50%; 
+        padding-top: 20px;
+        padding-bottom: 20px;
+        }
+}
+
+// Composant POST
+
+.post {
+    &__container {
+        width: 90%;
+        max-width: 700px;
+        margin: auto;
+        background-color: $secondary-color;
+        border-radius: 15px;
+        padding: 30px;
+        box-sizing: border-box;
+        margin-bottom: 30px;
+    }
+    &__header {
+        position: relative;
+        margin-bottom: 20px;
+    }
+    &__title {
+        margin: 0px;
+    }
+    &__author {
+        margin: 0px;
+        font-size: smaller;
+    }
+    &__date {
+        right: 0;
+        position: absolute;
+        bottom: 0;
+        margin: 0;
+    }
+    &__img {
+        width: 100%;
+    }
+    &__comm {
+        position: relative;
+        &__add {
+            position: absolute;
+            right: 0;
+            top: 0;
+            margin: 0;
+            @media screen and (max-width: 659px) {
+                width: 100%;
+                position: inherit;
+            }
+        }
+    }
+
+}
+
+// Composant FOOTER
+
+footer {
+    background-color: $primary-color;
+    color: white;
+    width: 100%;
+    text-align: center;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+// Composant Boutton Supp
+
+#post__delete {
+    display: block;
+    margin: auto;
+    width: 80%;
+    max-width: 200px;
+    text-align: center;
+    margin-bottom: 50px;
+    background-color: $primary-color;
+    padding: 5px;
+    margin-top: 20px;
+    border-radius: 5px;
+    color: white;
+    font-weight: bolder;
+    transition: all 250ms;
+        &:hover {
+            background-color: lighten($color: $primary-color, $amount: 10);
+            box-shadow: 0px 0px 4px 0px #6f7070;
+        }
+}
+
+// Composant Commentaires
+
+.comm {
+    &__container {
+        width: 90%;
+        max-width: 700px;
+        margin: auto;
+        background-color: $secondary-color;
+        border-radius: 15px;
+        padding: 30px;
+        box-sizing: border-box;
+        margin-bottom: 30px;
+    }
+    &__form {
+        max-width: 100%;
+        width: 100%;
+        min-width: 100%;
+        max-height: 100px;
+        min-height: 40px;
+        border-radius: 15px;
+        padding: 15px;
+        box-sizing: border-box;
+    }
+    &__submit {
+    display: block;
+    text-align: center;
+    margin-bottom: 50px;
+    background-color: $primary-color;
+    padding: 5px;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-top: 10px;
+    border-radius: 5px;
+    color: white;
+    font-weight: bolder;
+    transition: all 250ms;
+    border: 0;
+        &:hover {
+            background-color: lighten($color: $primary-color, $amount: 10);
+            box-shadow: 0px 0px 4px 0px #6f7070;
+        }
+    }
+    &__getOne {
+        background-color: white;
+        border-radius: 15px;
+        padding: 15px;
+        box-sizing: border-box;
+        margin-bottom: 30px;
+        border-left: 1px solid $primary-color;
+        border-bottom: 1px solid $primary-color;;
+        &__author {
+            margin: 0;
+            font-weight: bold;
+        }
+        &__date {
+            margin-top: 5px;
+            font-weight: lighter;
+        }
+    }
+}
+
+// Composant Account
+
+.account {
+    width: 90%;
+    max-width: 700px;
+    margin: auto;
+    margin-bottom: 30px;
+    margin-top: -100px;
+    min-height: 300px;
+    &__name {
+        text-align: center;
+    }
+    &__post {
+        &__link {
+            display: block;
+            width: 100%;
+            background-color: $secondary-color;
+            border-radius: 15px;
+            padding: 15px;
+            box-sizing: border-box;
+            margin-bottom: 5px;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+    }
+    &__delete {
+        display: block;
+        text-align: center;
+        background-color: #ff0000;
+        padding: 5px;
+        padding-right: 15px;
+        padding-left: 15px;
+        border-radius: 5px;
+        color: white;
+        font-weight: bolder;
+        transition: all 250ms;
+        border: 0;
+        width: fit-content;
+        margin: auto;
+        margin-top: 40px;
+        margin-bottom: 40px;
+        &:hover {
+            background-color: lighten($color: $primary-color, $amount: 10);
+            box-shadow: 0px 0px 4px 0px #6f7070;
+        }
+    }
+}
+
+
+
+
+
