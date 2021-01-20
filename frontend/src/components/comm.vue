@@ -1,47 +1,16 @@
-<!DOCTYPE html>
-<html lang="fr">
-    <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0,  shrink-to-fit=no"/>
-        <link rel="stylesheet" href="/public/css/style.css" /> <!-- à remplacer -->
-        <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
-        <title>Groupomania</title>
-        <link href="https://fonts.googleapis.com/css2?family=Shrikhand&display=swap" rel="stylesheet">
-        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;400;500&display=swap" rel="stylesheet">
-    </head>
-<body>
-  <!-- Composant HEADER -->
-    <header>
-        <img id="header__logo" src="img/icon-left-font.png" alt="Logo de l'entreprise Groupomania">
-            <nav id="navigation">
-                <a class="boutonnav" href="">Mon compte</a>
-                <a class="boutonnav__logout" href="">Déconnexion</a>
-            </nav>
-    </header>
-  <!-- Composant POST -->
-  <div class="post__container">
-    <div class="post">
-      <div class="post__header">
-          <h1 class="post__title">Titre</h1>
-          <p class="post__author">Prénom Nom</p>
-          <p class="post__date">00-00-0000</p>
-      </div>
-           <img class="post__img" src="img/unnamed.gif" alt="pikapika">
-      </div>
-      <div class="post__comm">
-        <p class="post__comm__number">00 Commentaires</p>
-        <p class="post__comm__add">Ajouter un commentaire</p>
-      </div>
-    </div>
-  </div>
-  <!-- Composant BOUTON SUPP -->
-  <div id="post__delete">
-        Supprimer la publication
-  </div>
-  <!-- Composant COMM-->
-  <div class="comm__container">
+<script>
+export default {
+  name: 'comm',
+  props: {
+    msg: String
+  }
+}
+</script>
+
+<template>
+<div class="comm__container">
         <div class="comm__write">
-            <h2 class="comm__write__title">Commenter la publication</h1>
+            <h2 class="comm__write__title">Commenter la publication</h2>
             <form method="post" action="traitement.php" class="comm__block">
                 <textarea class="comm__form" name="textarea" placeholder="Ecrivez ici votre commentaire" rows="5" cols="30" minlength="3" maxlength="254"></textarea>
                 <button type="submit" name="button" class="comm__submit">Publier</button>
@@ -66,9 +35,77 @@
             </div>
         </div>
   </div>
-  <!-- Composant FOOTER-->
-  <footer>
-    <p class="footer__text">© Groupomania 0000 </p>
-  </footer>
-</body>
-</html>
+</template>
+
+<style lang="scss">
+$primary-color: #ff0000;
+$secondary-color: #ffd5d7;
+
+a {
+    text-decoration: none;
+}
+
+body {
+    font-family: Roboto;
+    margin: 0px;
+}
+
+.comm {
+    &__container {
+        width: 90%;
+        max-width: 700px;
+        margin: auto;
+        background-color: $secondary-color;
+        border-radius: 15px;
+        padding: 30px;
+        box-sizing: border-box;
+        margin-bottom: 30px;
+    }
+    &__form {
+        max-width: 100%;
+        width: 100%;
+        min-width: 100%;
+        max-height: 100px;
+        min-height: 40px;
+        border-radius: 15px;
+        padding: 15px;
+        box-sizing: border-box;
+    }
+    &__submit {
+    display: block;
+    text-align: center;
+    margin-bottom: 50px;
+    background-color: $primary-color;
+    padding: 5px;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-top: 10px;
+    border-radius: 5px;
+    color: white;
+    font-weight: bolder;
+    transition: all 250ms;
+    border: 0;
+        &:hover {
+            background-color: lighten($color: $primary-color, $amount: 10);
+            box-shadow: 0px 0px 4px 0px #6f7070;
+        }
+    }
+    &__getOne {
+        background-color: white;
+        border-radius: 15px;
+        padding: 15px;
+        box-sizing: border-box;
+        margin-bottom: 30px;
+        border-left: 1px solid $primary-color;
+        border-bottom: 1px solid $primary-color;;
+        &__author {
+            margin: 0;
+            font-weight: bold;
+        }
+        &__date {
+            margin-top: 5px;
+            font-weight: lighter;
+        }
+    }
+}
+</style>

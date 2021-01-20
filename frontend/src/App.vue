@@ -1,28 +1,45 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+<div id="app">
+    <router-view></router-view>
   </div>
 </template>
 
-<script>
-import HelloWorld from './components/HelloWorld.vue'
+<style lang="scss">
+$primary-color: #ff0000;
+$secondary-color: #ffd5d7;
 
+body {
+    font-family: Roboto;
+    margin: 0px;
+}
+
+a {
+    text-decoration: none;
+}
+</style>
+
+<script>
 export default {
-  name: 'App',
-  components: {
-    HelloWorld
+  data: function () {
+    return {
+      title: 'Groupomania'
+    }
+  },
+  head: {
+    title: function () {
+      return {
+        inner: this.title
+      }
+    },
+    meta: [
+      { name: 'description', content: 'Réseau social de Groupomania', id: 'desc' },
+      { name: 'viewport', content: 'width=device-width, initial-scale=1.0,  shrink-to-fit=no' }
+    ],
+    link: [
+        { rel: 'shortcut icon', type: 'image/x-icon', href: 'favicon.ico'},
+        { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Shrikhand&display=swap'},
+        { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Roboto:wght@100;400;500&display=swap'}
+      ]
   }
 }
 </script>
-
-<style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>

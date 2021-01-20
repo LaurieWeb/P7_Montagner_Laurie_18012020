@@ -17,13 +17,25 @@
                 <a class="boutonnav" href="">Mon compte</a>
                 <a class="boutonnav__logout" href="">Déconnexion</a>
             </nav>
-            </header>
     </header>
+  <!-- Composant ADD POST-->
+  <div class="addpost__container">
+    <h1 class="addpost__title">Partager un gif</h1>
+    <form class="addpost">
+      <div class="addpost__form">
+        <input type="text" class="addpost__form__title" formControlName="title" placeholder="Donnez un titre à votre gif !">
+      </div>
+      <div class="addpost__form">
+        <input class="addpost__form__img" type="file" accept="image/*">
+      </div>
+      <button class="addpost__form__button">Partager</button>
+    </form>
+  </div>
   <!-- Composant POST -->
   <div class="post__container">
     <div class="post">
       <div class="post__header">
-          <h1 class="post__title">Titre</h1>
+          <h2 class="post__title">Titre</h2>
           <p class="post__author">Prénom Nom</p>
           <p class="post__date">00-00-0000</p>
       </div>
@@ -39,7 +51,7 @@
   <div class="post__container">
     <div class="post">
       <div class="post__header">
-          <h1 class="post__title">Titre vraiment très très très très très très très très très long</h1>
+          <h2 class="post__title">Titre vraiment très très très très très très très très très long</h2>
           <p class="post__author">Prénom Nom</p>
           <p class="post__date">00-00-0000</p>
       </div>
