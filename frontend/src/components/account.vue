@@ -1,25 +1,56 @@
 <script>
+import axios from 'axios';
+
 export default {
   name: 'account',
-  props: {
-    msg: String
-  }
+  data(){
+        return{
+            user: []
+        }
+    },
+  methods: {
+    getUser(){
+      const userId = this.$user.userId;
+      axios.get(`http://localhost:3000/auth/${userId}`,
+          {
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${this.$token}`
+            }
+          }
+      )
+      .then(res => {
+                this.user = res.data;
+            });
+    }
+  },
+    deleteUser(){
+      const userId = this.$user.userId;
+      axios.delete(`http://localhost:3000/auth/${userId}`,
+          {
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${this.$token}`
+            }
+          }
+      )
+      .then(location.href = "/");
+    }
 }
+
 </script>
 
 <template>
 <div class="account__container">
-  <img class="home__logo" src="../assets/icon-above-font.svg" alt="Logo de l'entreprise Groupomania">
+  <img class="home__logo" src="../assets/icon-above-font.svg" alt="Logo de l'entreprise Groupomania"/>
   <div class="account">
-        <h1 class="account__name">Prénom Nom</h1>
-        <div class="account__post">
+      <h1 class="account__name">{{ user.prenom }} {{ user.nom }}</h1>
+        <!--<div class="account__post">
             <h2 class="account__post__title">Mes publications</h2>
-            <a class="account__post__link" src="" alt="">Mon post blabla</a>
-            <a class="account__post__link" src="" alt="">Mon post blabla</a>
-            <a class="account__post__link" src="" alt="">Mon post blabla très très  très très  très très  très très  très très  très très  très très  très très  très très  très très  long</a>
-        </div>
-        <div class="account__delete">Supprimer mon compte</div>
+            <a class="account__post__link" v-for="post in user.posts" :key="post.id">{{ post.title }}</a>
+        </div> à voir si j'ai le temps-->
     </div>
+    <div class="account__delete" @click="deleteUser()">Supprimer mon compte</div>
 </div>
 </template>
 

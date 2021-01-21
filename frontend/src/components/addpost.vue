@@ -1,23 +1,51 @@
 <script>
+import axios from 'axios';
+
 export default {
   name: 'addpost',
   props: {
     msg: String
-  }
+  },
+  data(){
+        return{
+            content: '',
+        }
+    },
+  methods: {
+        addOnePost(){
+            const title = document.getElementById("postTitle").value;
+            const imgUrl = document.getElementById("postImg").value;
+            axios.post(`http://localhost:3000/posts/`,
+                    {
+                        userId: this.$user.userId,
+                        title,
+                        imgUrl
+                    },
+                    {
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${this.$token}`
+                        }
+                    }
+                )
+                .then(this.$root.$emit('Posts'))
+                     }   
+           }
 }
+
 </script>
 
 <template>
      <div class="addpost__container">
-    <h1 class="addpost__title">Partager un gif</h1>
+    <h1 id="postTitle" class="addpost__title">Partager un gif</h1>
     <form class="addpost">
       <div class="addpost__form">
         <input type="text" class="addpost__form__title" formControlName="title" placeholder="Donnez un titre à votre gif !">
       </div>
       <div class="addpost__form">
-        <input class="addpost__form__img" type="file" accept="image/*">
+        <input id="postImg" class="addpost__form__img" type="file" accept="image/*">
       </div>
-      <button class="addpost__form__button">Partager</button>
+      <button class="addpost__form__button" @submit.prevent="addOnePost()">Partager</button>
     </form>
   </div>
 </template>

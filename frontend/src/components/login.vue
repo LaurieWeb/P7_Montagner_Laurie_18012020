@@ -8,7 +8,7 @@
         <label for="password">Password</label>
         <input type="password" class="form-control" id="password" formControlName="password">
       </div>
-      <button class="form__button">Se connecter</button>
+      <router-link to='/feed'><button class="form__button">Se connecter</button></router-link>
     </form>
 </template>
 

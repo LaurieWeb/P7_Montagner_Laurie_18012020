@@ -16,7 +16,7 @@
       <label class="form-label" for="password">Mot de passe</label>
       <input type="password" class="form-control" id="password" formControlName="password">
     </div>
-    <button class="form__button">Inscription</button>
+    <router-link to='/feed'><button class="form__button">Inscription</button></router-link>
   </form>
 </template>
 
