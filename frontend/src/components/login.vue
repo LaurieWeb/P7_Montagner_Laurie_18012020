@@ -1,6 +1,6 @@
 <template>
 <div>
-    <form class="loginForm" @submit.prevent="login()">
+    <form class="loginForm" @submit.prevent="login()"> <!-- Au clic sur le bouton submit, appel de la fonction login -->
       <div class="form-group">
         <label for="email">Email</label>
         <input type="email" class="form-control" id="email" formControlName="email" required>
@@ -11,43 +11,40 @@
       </div>
       <button type="submit" class="form__button">Se connecter</button>
     </form>
-    <div class="error-message">{{message}}</div>
+    <div class="error-message">{{message}}</div><!-- Affichage du message d'erreur -->
 </div>
 </template>
 
 <script>
-import axios from 'axios';
+import axios from 'axios'; // importation du plugin axios pour appel de l'API
 
-export default {
+export default { // création de l'objet à exporter
   name: 'login',
-  props: {
-    msg: String
-  },
   data() {
         return {
-            message: "",
+            message: "", // déclaration de la variable message dans le data store
         };
     },
     methods: {
-        login(){
-            const email = document.getElementById("email").value;
-            const password = document.getElementById("password").value;
-            axios.post(`http://localhost:3000/auth/login`,
+        login(){ // Fonction de connexion 
+            const email = document.getElementById("email").value; // récupération de l'email dans l'input d'id email
+            const password = document.getElementById("password").value; // récupération du mot de passe dans l'input d'id password
+            axios.post(`http://localhost:3000/auth/login`, // Appel de l'API pour envoyer les infos de connexion
                 {
                     email,
-                    password
+                    password // Envoi des données
                 },
                 {
-                    headers: {
+                    headers: { // headers de la requete
                         'Content-Type': 'application/json'
                     }
                 }
             )
             .then(res => {
-                localStorage.setItem('user', JSON.stringify(res.data));
-                document.location.href="./feed";
+                localStorage.setItem('user', JSON.stringify(res.data)); // stockage de la réponse dans localStorage
+                document.location.href="./feed"; // redirection vers la page feed
             })
-            .catch((error) => {
+            .catch((error) => { // Gestion des messages d'erreur
                 if (error.response.status === 404) {
                     this.message = "Utilisateur non trouvé";
                 }

@@ -1,6 +1,6 @@
 <template>
   <div>
-      <form class="signupForm" @submit.prevent = signup()>
+      <form class="signupForm" @submit.prevent="signup()"> <!-- Au clic sur le bouton submit, appel de la fonction signup -->
           <div class="form-group">
             <label class="form-label" for="Nom">Nom</label>
             <input type="text" class="form-control" id="nom" formControlName="nom" required>
@@ -19,49 +19,47 @@
           </div>
           <button class="form__button">Inscription</button>
     </form>
-    <div class="error-message">{{message}}</div>
+    <div class="error-message">{{message}}</div> <!-- Affichage du message d'erreur -->
   </div>
 </template>
 
 <script>
-import axios from 'axios';
+import axios from 'axios'; // importation du plugin axios pour appel de l'API
 
-export default {
+export default { // création de l'objet à exporter
   name: 'signup',
-  props: {
-    msg: String
-  },
   data() {
         return {
-            message: "",
+            message: "", // déclaration de la variable message dans le data store
         };
     },
   methods: {
-        signup(){
-            const nom = document.getElementById("nom").value;
-            const prenom = document.getElementById("prenom").value;
-            const password = document.getElementById("password").value;
-            const email = document.getElementById("email").value;
-            axios.post(`http://localhost:3000/auth/signup`,
+        signup(){ // Fonction de création de compte 
+            const nom = document.getElementById("nom").value; // récupération du nom dans l'input d'id nom
+            const prenom = document.getElementById("prenom").value; // récupération du prenom dans l'input d'id prenom
+            const password = document.getElementById("password").value; // récupération du mot de passe dans l'input d'id password
+            const email = document.getElementById("email").value; // récupération de l'email dans l'input d'id email
+            axios.post(`http://localhost:3000/auth/signup`, // Appel de l'API pour envoyer les infos de création de compte
                         {
                             nom,
                             prenom,
                             password,
-                            email
+                            email // Envoie des données
                         },
                         {
-                            headers: {
+                            headers: { // headers de la requete
                                 'Content-Type': 'application/json'
                             }
                         }
                     )
                     .then(res => {
-                        if(res.status === 201) {
-                            location.href = './feed';
+                        if(res.status === 201) { // Requete réussie
+                            localStorage.setItem('user', JSON.stringify(res.data)); // stockage de la réponse dans localStorage
+                            document.location.href="./feed"; // redirection vers la page feed
                         }
                     })
                     .catch((error) => {
-                        if (error.response.status === 401) {
+                        if (error.response.status === 401) { // Requete non autorisée
                             this.message = "Un utilisateur existe déjà pour cet email.";
                         }  
                     });

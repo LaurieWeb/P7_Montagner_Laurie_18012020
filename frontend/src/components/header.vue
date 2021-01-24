@@ -1,23 +1,20 @@
 <template>
     <header>
-        <router-link to='/feed' id="header__logo"><img id="header__logo" src="../assets/icon-left-font.png" alt="Logo de l'entreprise Groupomania"></router-link>
+        <router-link to='/feed' id="header__logo"><img id="header__logo" src="../assets/icon-left-font.png" alt="Logo de l'entreprise Groupomania"></router-link><!-- Lien routeur vers le feed lorsque l'on clique sur le logo de Groupomania-->
             <nav id="navigation">
-                <router-link to='/myaccount' class="boutonnav">Mon compte</router-link>
-                <div class="boutonnav__logout" @click="deconnexion()">Déconnexion</div>
+                <router-link to='/myaccount' class="boutonnav">Mon compte</router-link> <!-- Lien routeur vers la page Mon Compte-->
+                <div class="boutonnav__logout" @click="deconnexion()">Déconnexion</div><!-- Au clic, appel de la fonction deconnexion-->
             </nav>
     </header>
 </template>
 
 <script>
-export default {
+export default { // création de l'objet à exporter
   name: 'Header',
-  props: {
-    msg: String
-  },
   methods: {
-        deconnexion(){
-            localStorage.removeItem('user');
-            location.href = "/";
+        deconnexion(){ // Fonction de déconnexion
+            localStorage.removeItem('user'); // SUppression de l'user dans le localStorage
+            location.href = "/"; // Redirection vers la page d'accueil de connexion
         }
     }
 }

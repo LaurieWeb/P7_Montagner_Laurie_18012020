@@ -1,6 +1,6 @@
 <template>
 <div id="app">
-    <router-view></router-view>
+    <router-view></router-view><!-- Indique qu'ici doivent apparaitre les composants appelés par le routeur-->
   </div>
 </template>
 

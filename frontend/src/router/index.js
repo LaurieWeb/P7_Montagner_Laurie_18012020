@@ -1,14 +1,17 @@
+/********** Importation des plugins ************/
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 
-Vue.use(VueRouter)
+Vue.use(VueRouter) // lancement de Vue
+
+/********** Déclaration des routes *********/
 
 const routes = [
   {
-    path: '/',
-    name: 'Home',
-    component: Home
+    path: '/', //chemin dans l'url
+    name: 'Home', // nom de page
+    component: Home // composant correspondant
   },
   {
     path: '/feed',
@@ -27,6 +30,7 @@ const routes = [
   }
 ]
 
+/********** Lancement et création du routeur Vue **********/
 const router = new VueRouter({
   routes
 })

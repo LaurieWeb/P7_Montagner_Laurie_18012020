@@ -1,39 +1,31 @@
 <script>
-import axios from 'axios';
+import axios from 'axios'; // importation du plugin axios pour appel de l'API
 
 export default {
-  name: 'addpost',
-  props: {
-    msg: String
-  },
-  data(){
-        return{
-            content: '',
-        }
-    },
+  name: 'addpost', // création de l'objet à exporter
   methods: {
-        addOnePost(){
-            const title = document.getElementById("postTitle").value;
-            const imgUrl = document.getElementById("postImg").value;
-            let date = new Date();
-            let dateLocale = date.toLocaleString('fr-FR',{day: 'numeric', month: 'numeric', year: 'numeric'});
-            axios.post(`http://localhost:3000/posts/`,
+        addPost(){ // fonction d'ajout d'une publication
+            const title = document.getElementById("postTitle").value; // récupération du titre dans l'input d'id postTitle
+            const imgUrl = document.getElementById("postImg").value; // récupération de l'url de l'image dans l'input d'id postImg
+            let date = new Date(); // Récupération de la date du jour
+            let dateLocale = date.toLocaleString('fr-FR',{day: 'numeric', month: 'numeric', year: 'numeric'}); // Mise en forme de la date
+            axios.post(`http://localhost:3000/posts/`, // Appel de l'API pour envoyer la publication
                     {
-                        userId: this.$user.id,
-                        nom: this.$user.nom,
-                        prenom: this.$user.prenom,
-                        title,
-                        imgUrl,
-                        dateLocale
+                        userId: this.$user.id, // Récupération de l'id de l'user dans localstorage et envoie
+                        nom: this.$user.nom, // Récupération du nom de l'user dans localstorage et envoie
+                        prenom: this.$user.prenom, // Récupération du prenom de l'user dans localstorage et envoie
+                        title, // Envoi du titre
+                        imgUrl, // Envoi de l'url de l'image
+                        dateLocale // Envoi de la date
                     },
                     {
-                        headers: {
+                        headers: { // headers de la requete dont le token d'authentification
                             'Content-Type': 'application/json',
                             'Authorization': `Bearer ${this.$token}`
                         }
                     }
                 )
-                .then(document.location.reload())
+                .then(document.location.reload()) // Après ajout, rafraichissement de la page
                      }   
            }
 }
@@ -50,7 +42,7 @@ export default {
       <div class="addpost__form">
         <input id="postImg" class="addpost__form__img" type="file" accept="image/*" required>
       </div>
-      <button class="addpost__form__button" @submit.prevent="addOnePost()">Partager</button>
+      <button class="addpost__form__button" @submit.prevent="addPost()">Partager</button><!-- Au clic, appel de la fonction addPost-->
     </form>
   </div>
 </template>

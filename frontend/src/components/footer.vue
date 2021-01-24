@@ -1,9 +1,6 @@
 <script>
-export default {
+export default { // création de l'objet à exporter
   name: 'Footer',
-  props: {
-    msg: String
-  }
 }
 </script>
 

@@ -2,45 +2,46 @@
   <div class="home">
     <router-link to="/"><img class="home__logo" src="../assets/icon-above-font.svg" alt="Logo de l'entreprise Groupomania"></router-link>
     <div class="home__buttons">
-        <div class="home__buttons__signup" @click="visiblesignup = !visible, visiblelogin = visible">S'inscrire</div>
-        <div class="home__buttons__login" @click="visiblelogin = !visible, visiblesignup = visible">Se connecter</div>
+        <div class="home__buttons__signup" @click="visiblesignup = !visible, visiblelogin = visible">S'inscrire</div><!-- Au click, la variable visiblesignup devient true tandis que la variable visiblelogin devient false-->
+        <div class="home__buttons__login" @click="visiblelogin = !visible, visiblesignup = visible">Se connecter</div> <!-- Au click, la variable visiblelogin devient true tandis que la variable visiblesignup devient false-->
     </div>
     <signup v-if="visiblesignup"/>
-    <login v-if="visiblelogin"/>    
+    <login v-if="visiblelogin"/>   <!-- Ajouts des composants dans le html en fonction de leur attribut visible en booléan--> 
   </div>
 </template>
 
 <script>
+/*********** Importation des différents composants *******/
 import login from '@/components/login.vue'
 import signup from '@/components/signup.vue'
 
-export default {
+export default { // création de l'objet à exporter
   name: 'Home',
-  components: {
+  components: { // déclaration des composants utilisés
     login,
     signup,
   },
-  data: () => ({
+  data: () => ({ // déclaration des différentes variables utilisées
     visiblelogin: false,
     visiblesignup: false,
     connected: true,
     visible: null
   }),
   methods: {
-    checkConnect(){
-      if(localStorage.user !== undefined){
+    checkConnect(){ // Fonction de vérification de connexion
+      if(localStorage.user !== undefined){ // si un utilisateur est enregistré dans localStorage
         this.connected = true;
         console.log('Utilisateur connecté !');
-        window.location.href = '/feed';
+        window.location.href = '/feed'; // Redirection vers la page feed
       }
-      else if(localStorage.user == undefined){
+      else if(localStorage.user == undefined){ // si aucun utilisateur n'est enregistré dans localStorage
         this.connected = false;
         console.log('Utilisateur non connecté !');
       }
     }
   },
   created(){
-    this.checkConnect()
+    this.checkConnect() // Appel de la fonction checkConnect dès que la page est created, appelé juste après que l’instance a été créée
   }
 }
 </script>
