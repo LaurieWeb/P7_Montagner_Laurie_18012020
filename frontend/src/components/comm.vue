@@ -7,13 +7,13 @@
                 <button type="submit" name="button" class="comm__submit">Publier</button>
             </form>
         </div>
-        <div class="comm__read">
+        <div id="comm" class="comm__read">
            <h2 class="comm__read__title">{{ comm.lenght }} Commentaires</h2>
             <div class="comm__getOne" v-for="comm in comms" :key="comm.id">
                 <p class="comm__getOne__author">{{ comm.prenom }} {{ comm.nom }}</p>
                 <p class="comm__getOne__date">{{ comm.date }}</p>
                 <p class="comm__getOne__containt">{{ comm.content }}</p>
-                <button @click="deleteComment(comm.id)" v-if="comm.userId == $user.userId || $user.admin == 1" :key="comment.id" class="comm__submit">Supprimer le commentaire</button>
+                <button @click="deleteComment(comm.id)" v-if="comm.userId == $user.id || $user.admin == 1" :key="comment.id" class="comm__submit">Supprimer le commentaire</button>
             </div>
         </div>
   </div>
@@ -38,11 +38,11 @@ export default {
     methods: {
         newComm(){
             const postId = parseInt(this.$route.params.id);
-            const userId = this.$user.userId;
+            const userId = this.$user.id;
             const commContent = document.getElementById('new__comm').value;
             let date = new Date();
             let dateLocale = date.toLocaleString('fr-FR',{day: 'numeric', month: 'numeric', year: 'numeric'});
-            axios.post(`http://localhost:3000/posts/${postId}/comment/`,
+            axios.post(`http://localhost:3000/posts/${postId}/comments/`,
                 {
                     userId,
                     commContent,
@@ -51,7 +51,7 @@ export default {
                 {
                     headers: {
                         'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${this.$token}` // à voir
+                        'Authorization': 'Bearer ${this.$token}'
                     }
                 }
             )

@@ -1,8 +1,7 @@
 <template>
   <div class="home">
     <Header/>
-    <posts/>
-    <suppbutton/>
+    <onepost/>
     <comm/>
     <Footer/>
   </div>
@@ -11,18 +10,35 @@
 <script>
 import Header from '@/components/header.vue'
 import Footer from '@/components/footer.vue'
-import posts from '@/components/posts.vue'
+import onepost from '@/components/onepost.vue'
 import comm from '@/components/comm.vue'
-import suppbutton from '@/components/suppbutton.vue'
 
 export default {
   name: 'Feed',
   components: {
     Header,
     Footer,
-    posts,
-    comm,
-    suppbutton
+    onepost,
+    comm
+  },
+  data: () => ({
+    connected: null,
+  }),
+  methods: {
+    checkConnect(){
+      if(localStorage.user !== undefined){
+        this.connected = true;
+        console.log('Utilisateur connecté !');
+      }
+      else if(localStorage.user == undefined){
+        this.connected = false;
+        console.log('Utilisateur non connecté !');
+        window.location.href = '/';
+      }
+    }
+  },
+  created(){
+    this.checkConnect()
   }
 }
 </script>

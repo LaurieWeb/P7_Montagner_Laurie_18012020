@@ -1,27 +1,55 @@
 <script>
+import axios from 'axios';
+
 export default {
-  name: 'post',
+  name: 'posts',
   props: {
     msg: String
-  }
+  },
+  data(){
+        return {
+            posts: [],
+        }
+    },
+    mounted() {
+            this.getAllPost();
+    },
+    methods: {
+        getAllPost(){
+            axios.get(`http://localhost:3000/posts/`,
+                {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${this.$token}`
+                    }
+                }
+            )
+            .then(res => {
+                this.posts = res.data;
+            })
+        }
+    }
 }
 </script>
 
 <template>
-<router-link to='/post'><div class="post__container">
-    <div class="post">
-      <div class="post__header">
-          <h2 class="post__title">Titre</h2>
-          <p class="post__author">Prénom Nom</p>
-          <p class="post__date">00-00-0000</p>
-      </div>
-           <img class="post__img" src="../assets/unnamed.gif" alt="pikapika">
-      </div>
-      <div class="post__comm">
-        <p class="post__comm__number">00 Commentaires</p>
-        <p class="post__comm__add">Ajouter un commentaire</p>
-      </div>
-</div></router-link>
+<div>
+    <router-link to='{ name: "Post", params: { id: post.id } }' v-for="post in posts" :key="post.id">
+        <div class="post__container">
+            <div class="post">
+            <div class="post__header">
+                <h2 class="post__title">{{post.title}}</h2>
+                <p class="post__author"> {{post.prenom}} {{post.nom}}</p>
+                <p class="post__date">{{post.date}}</p>
+            </div>
+                <img class="post__img" :src="post.imgURL" :alt="post.title">
+            </div>
+            <div class="post__comm">
+                <router-link to='{ name: "Post", params: { id: post.id } }/#comm'><p class="post__comm__add">Ajouter un commentaire</p></router-link>
+            </div>
+        </div>
+    </router-link>
+</div>
 </template>
 
 <style lang="scss">

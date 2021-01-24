@@ -3,7 +3,7 @@
         <router-link to='/feed' id="header__logo"><img id="header__logo" src="../assets/icon-left-font.png" alt="Logo de l'entreprise Groupomania"></router-link>
             <nav id="navigation">
                 <router-link to='/myaccount' class="boutonnav">Mon compte</router-link>
-                <router-link to='/' class="boutonnav__logout">Déconnexion</router-link>
+                <div class="boutonnav__logout" @click="deconnexion()">Déconnexion</div>
             </nav>
     </header>
 </template>
@@ -13,7 +13,13 @@ export default {
   name: 'Header',
   props: {
     msg: String
-  }
+  },
+  methods: {
+        deconnexion(){
+            localStorage.removeItem('user');
+            location.href = "/";
+        }
+    }
 }
 </script>
 

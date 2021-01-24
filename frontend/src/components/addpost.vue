@@ -15,11 +15,16 @@ export default {
         addOnePost(){
             const title = document.getElementById("postTitle").value;
             const imgUrl = document.getElementById("postImg").value;
+            let date = new Date();
+            let dateLocale = date.toLocaleString('fr-FR',{day: 'numeric', month: 'numeric', year: 'numeric'});
             axios.post(`http://localhost:3000/posts/`,
                     {
-                        userId: this.$user.userId,
+                        userId: this.$user.id,
+                        nom: this.$user.nom,
+                        prenom: this.$user.prenom,
                         title,
-                        imgUrl
+                        imgUrl,
+                        dateLocale
                     },
                     {
                         headers: {
@@ -28,7 +33,7 @@ export default {
                         }
                     }
                 )
-                .then(this.$root.$emit('Posts'))
+                .then(document.location.reload())
                      }   
            }
 }
@@ -37,13 +42,13 @@ export default {
 
 <template>
      <div class="addpost__container">
-    <h1 id="postTitle" class="addpost__title">Partager un gif</h1>
+    <h1 class="addpost__title">Partager un gif</h1>
     <form class="addpost">
       <div class="addpost__form">
-        <input type="text" class="addpost__form__title" formControlName="title" placeholder="Donnez un titre à votre gif !">
+        <input id="postTitle" type="text" class="addpost__form__title" formControlName="title" placeholder="Donnez un titre à votre gif !" maxlength = "50" required>
       </div>
       <div class="addpost__form">
-        <input id="postImg" class="addpost__form__img" type="file" accept="image/*">
+        <input id="postImg" class="addpost__form__img" type="file" accept="image/*" required>
       </div>
       <button class="addpost__form__button" @submit.prevent="addOnePost()">Partager</button>
     </form>

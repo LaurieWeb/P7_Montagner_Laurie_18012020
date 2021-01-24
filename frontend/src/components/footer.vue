@@ -9,7 +9,7 @@ export default {
 
 <template>
     <footer>
-    <p class="footer__text">© Groupomania 0000 </p>
+    <p class="footer__text">© Groupomania</p>
   </footer>
 </template>
 
@@ -31,7 +31,11 @@ footer {
     color: white;
     width: 100%;
     text-align: center;
-    padding: 10px;
+    padding: 2px;
     box-sizing: border-box;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    left: 0;
 }
 </style>

@@ -10,7 +10,7 @@ export default {
     },
   methods: {
     getUser(){
-      const userId = this.$user.userId;
+      const userId = this.$user.id;
       axios.get(`http://localhost:3000/auth/${userId}`,
           {
             headers: {
@@ -25,7 +25,7 @@ export default {
     }
   },
     deleteUser(){
-      const userId = this.$user.userId;
+      const userId = this.$user.id;
       axios.delete(`http://localhost:3000/auth/${userId}`,
           {
             headers: {
@@ -43,14 +43,8 @@ export default {
 <template>
 <div class="account__container">
   <img class="home__logo" src="../assets/icon-above-font.svg" alt="Logo de l'entreprise Groupomania"/>
-  <div class="account">
-      <h1 class="account__name">{{ user.prenom }} {{ user.nom }}</h1>
-        <!--<div class="account__post">
-            <h2 class="account__post__title">Mes publications</h2>
-            <a class="account__post__link" v-for="post in user.posts" :key="post.id">{{ post.title }}</a>
-        </div> à voir si j'ai le temps-->
-    </div>
-    <div class="account__delete" @click="deleteUser()">Supprimer mon compte</div>
+  <h1 class="account__name">{{ user.prenom }} {{ user.nom }}</h1>
+  <div class="account__delete" @click="deleteUser()">Supprimer mon compte</div>
 </div>
 </template>
 
@@ -76,20 +70,8 @@ body {
     min-height: 300px;
     &__name {
         text-align: center;
-    }
-    &__post {
-        &__link {
-            display: block;
-            width: 100%;
-            background-color: $secondary-color;
-            border-radius: 15px;
-            padding: 15px;
-            box-sizing: border-box;
-            margin-bottom: 5px;
-            text-overflow: ellipsis;
-            overflow: hidden;
-            white-space: nowrap;
-        }
+        margin-top: 20px;
+        margin-bottom: 20px;
     }
     &__delete {
         display: block;
@@ -106,7 +88,7 @@ body {
         width: fit-content;
         margin: auto;
         margin-top: 40px;
-        margin-bottom: 40px;
+        margin-bottom: 100px;
         &:hover {
             background-color: lighten($color: $primary-color, $amount: 10);
             box-shadow: 0px 0px 4px 0px #6f7070;

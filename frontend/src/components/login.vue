@@ -1,23 +1,65 @@
 <template>
-    <form class="loginForm">
+<div>
+    <form class="loginForm" @submit.prevent="login()">
       <div class="form-group">
         <label for="email">Email</label>
-        <input type="email" class="form-control" id="email" formControlName="email">
+        <input type="email" class="form-control" id="email" formControlName="email" required>
       </div>
       <div class="form-group">
-        <label for="password">Password</label>
-        <input type="password" class="form-control" id="password" formControlName="password">
+        <label for="password">Mot de passe</label>
+        <input type="password" class="form-control" id="password" formControlName="password" required>
       </div>
-      <router-link to='/feed'><button class="form__button">Se connecter</button></router-link>
+      <button type="submit" class="form__button">Se connecter</button>
     </form>
+    <div class="error-message">{{message}}</div>
+</div>
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
   name: 'login',
   props: {
     msg: String
-  }
+  },
+  data() {
+        return {
+            message: "",
+        };
+    },
+    methods: {
+        login(){
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("password").value;
+            axios.post(`http://localhost:3000/auth/login`,
+                {
+                    email,
+                    password
+                },
+                {
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                }
+            )
+            .then(res => {
+                localStorage.setItem('user', JSON.stringify(res.data));
+                document.location.href="./feed";
+            })
+            .catch((error) => {
+                if (error.response.status === 404) {
+                    this.message = "Utilisateur non trouvé";
+                }
+                if (error.response.status === 401) {
+                    this.message = "Email ou mot de passe invalide.";
+                }
+                if (error.response.status === 500) {
+                    this.message = "Erreur serveur.";
+                }
+            });
+        }
+    }
 }
 </script>
 
@@ -35,6 +77,11 @@ a {
     &:visited {
         color: inherit;
     }
+}
+
+.error-message {
+    text-align: center;
+    margin-bottom: 30px;
 }
 
 .home__logo {
