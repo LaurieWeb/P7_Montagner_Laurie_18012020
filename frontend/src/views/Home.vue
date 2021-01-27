@@ -24,18 +24,15 @@ export default { // création de l'objet à exporter
   data: () => ({ // déclaration des différentes variables utilisées
     visiblelogin: false,
     visiblesignup: false,
-    connected: true,
     visible: null
   }),
   methods: {
     checkConnect(){ // Fonction de vérification de connexion
       if(localStorage.user !== undefined){ // si un utilisateur est enregistré dans localStorage
-        this.connected = true;
         console.log('Utilisateur connecté !');
-        window.location.href = '/feed'; // Redirection vers la page feed
+        location.href = '../#/feed'; // Redirection vers la page feed
       }
       else if(localStorage.user == undefined){ // si aucun utilisateur n'est enregistré dans localStorage
-        this.connected = false;
         console.log('Utilisateur non connecté !');
       }
     }

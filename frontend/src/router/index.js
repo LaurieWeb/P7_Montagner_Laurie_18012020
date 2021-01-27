@@ -1,7 +1,6 @@
 /********** Importation des plugins ************/
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
 
 Vue.use(VueRouter) // lancement de Vue
 
@@ -11,7 +10,7 @@ const routes = [
   {
     path: '/', //chemin dans l'url
     name: 'Home', // nom de page
-    component: Home // composant correspondant
+    component: () => import('../views/Home.vue') // composant correspondant
   },
   {
     path: '/feed',

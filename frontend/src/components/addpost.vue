@@ -12,8 +12,6 @@ export default {
             axios.post(`http://localhost:3000/posts/`, // Appel de l'API pour envoyer la publication
                     {
                         userId: this.$user.id, // Récupération de l'id de l'user dans localstorage et envoie
-                        nom: this.$user.nom, // Récupération du nom de l'user dans localstorage et envoie
-                        prenom: this.$user.prenom, // Récupération du prenom de l'user dans localstorage et envoie
                         title, // Envoi du titre
                         imgUrl, // Envoi de l'url de l'image
                         dateLocale // Envoi de la date

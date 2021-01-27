@@ -2,29 +2,13 @@
 const express = require('express');
 const app = express(); // Mise en fonctionnement de Express
 const bodyParser = require('body-parser');
-const mysql = require('mysql'); 
+var cors = require('cors') // Pour autoriser le cross-origin des serveurs
+app.use(cors()) 
 
 /****** Déclaration des routes *********/
 const userRoutes = require('./routes/user');
-const postsRoutes = require('./routes/posts');
+//const postsRoutes = require('./routes/posts');
 const path = require('path');
-
-/******** Connexion à la base de donnée MySQL ******/
-var db = mysql.createConnection({
-  host     : 'localhost',
-  user     : 'me',
-  password : 'secret',
-  database : 'my_db'
-});
- 
-db.connect();
- 
-db.query('SELECT 1 + 1 AS solution', function (error, results, fields) {
-  if (error) throw error;
-  console.log('The solution is: ', results[0].solution);
-});
- 
-db.end();
 
 /*********** Déclaration des Headers ******/
 app.use((req, res, next) => {
@@ -38,8 +22,8 @@ app.use((req, res, next) => {
 app.use(bodyParser.json());
 
 /******* Déclaration des fichiers routes *********/ 
-app.use('/api/auth', userRoutes);
-app.use('/api/posts', postsRoutes);
+app.use('/auth', userRoutes);
+//app.use('/api/posts', postsRoutes);
 app.use('/images', express.static(path.join(__dirname, 'images')));
 
 /********** Envoi de la requête *********/

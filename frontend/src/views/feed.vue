@@ -28,13 +28,11 @@ export default { // création de l'objet à exporter
   methods: {
     checkConnect(){ // Fonction de vérification de connexion
       if(localStorage.user !== undefined){ // si un utilisateur est enregistré dans localStorage
-        this.connected = true;
         console.log('Utilisateur connecté !');
       }
       else if(localStorage.user == undefined){ // si aucun utilisateur n'est enregistré dans localStorage
-        this.connected = false;
         console.log('Utilisateur non connecté !');
-        window.location.href = '/'; // Redirection vers la page d'acceuil de connexion
+        location.href = '../#/'; // Redirection vers la page d'accueil de connexion
       }
     }
   },

@@ -3,7 +3,7 @@
         <div class="comm__write">
             <h2 class="comm__write__title">Commenter la publication</h2>
             <form @submit.prevent="addComm()" class="comm__block"><!-- Au clic sur le bouton submit, appel de la fonction addComm -->
-                <textarea id="new__comm" class="comm__form" name="textarea" placeholder="Ecrivez ici votre commentaire" rows="5" cols="30" minlength="3" maxlength="254"></textarea>
+                <textarea id="new__comm" class="comm__form" name="textarea" placeholder="Ecrivez ici votre commentaire" rows="5" cols="30" minlength="3" maxlength="280"></textarea>
                 <button type="submit" name="button" class="comm__submit">Publier</button>
             </form>
         </div>
@@ -36,16 +36,12 @@ export default { // création de l'objet à exporter
         addComm(){ // Fonction d'ajout d'un commentaire
             const postId = parseInt(this.$route.params.id); // Récupération de l'id du post dans l'url de la page
             const userId = this.$user.id; // Récupération de l'userId dans localStorage
-            const nom = this.$user.nom; // Récupération du nom de l'user dans localstorage et envoie
-            const prenom = this.$user.prenom; // Récupération du prenom de l'user dans localstorage et envoie
             const commContent = document.getElementById('new__comm').value; // Récupération du contenu du commentaire dans l'input d'new__comm
             let date = new Date(); // Récupération de la date du jour
             let dateLocale = date.toLocaleString('fr-FR',{day: 'numeric', month: 'numeric', year: 'numeric'}); // Mise en forme de la date
             axios.post(`http://localhost:3000/posts/${postId}/comms/`, // Appel de l'API pour envoyer le commentaire
                 {
                     userId,
-                    nom,
-                    prenom,
                     commContent,
                     dateLocale // Envoi des données
                 },

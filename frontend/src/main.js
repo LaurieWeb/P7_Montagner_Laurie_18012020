@@ -13,7 +13,7 @@ if (localStorage.user != undefined) { // si un utilisateur existe dans localStor
   Vue.prototype.$user = JSON.parse(localStorage.user);  // définir dans la variable globale $user les infos sur l'utilisateur
 }
 
-/********* Lancement de Vue */
+/********* Lancement de Vue *********/
 new Vue({
   router,
   VueHead,

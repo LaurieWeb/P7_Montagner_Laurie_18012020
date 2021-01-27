@@ -53,13 +53,13 @@ export default { // création de l'objet à exporter
                         }
                     )
                     .then(res => {
-                        if(res.status === 201) { // Requete réussie
+                        if(res.status === 200) { // Requete réussie
                             localStorage.setItem('user', JSON.stringify(res.data)); // stockage de la réponse dans localStorage
-                            document.location.href="./feed"; // redirection vers la page feed
+                            location.reload() // redirection vers la page feed
                         }
                     })
-                    .catch((error) => {
-                        if (error.response.status === 401) { // Requete non autorisée
+                    .catch(res => {
+                        if (res.status === 401) { // Requete non autorisée
                             this.message = "Un utilisateur existe déjà pour cet email.";
                         }  
                     });

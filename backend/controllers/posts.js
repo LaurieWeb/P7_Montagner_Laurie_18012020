@@ -1,21 +1,16 @@
 /*********** Ajout d'application *********/
-const fs = require('fs');
+const fs = require('fs'); // Gestionnaire de fichiers
+var db = require('../db'); // Connexion à la base de données 
 
-/******** Importation du model Sauce *********/ 
-const Sauce = require('../models/Sauce');
+/******** Fonction de création d'un post *******/
 
-/******** Fonction de création d'une sauce *******/
 exports.addPost = (req, res, next) => {
-    const Object = JSON.parse(req.body.sauce); // Récupération du body de la sauce
-    delete sauceObject._id; // Supression de l'id généré par sauceObject pour ne pas avoir une requête impossible avec le nouvel id de la création de sauce
-    const sauce = new Sauce({ // Création d'une nouvelle sauce
-      ...sauceObject, // AJout du body de la sauce sans l'ancien id
-      imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}` // Ajout l'adresse de l'image
-    });
-    sauce.save() // Sauvegarde de la sauce
-      .then(() => res.status(201).json({ message: 'Objet enregistré !'}))
-      .catch(error => res.status(400).json({ error }));
-  };
+  var sql = "INSERT INTO Posts VALUES (NULL, '${req.body.userId}', '${req.body.title}', '${req.body.imgURL}', '${req.body.dateLocale}')";
+  db.query(sql, function (err, result) {
+    if (err) throw err;
+    console.log("1 posts inserted");
+  })
+};
 
 /******** Fonction de récupération d'une sauce *******/
 exports.getOneSauce = (req, res, next) => { 

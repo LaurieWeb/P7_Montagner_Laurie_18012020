@@ -9,33 +9,23 @@ export default { // création de l'objet à exporter
         }
     },
   methods: {
-    getUser(){ // fonction de récupération d'un utilisateur
-      const userId = this.$user.id; // récupération de l'id de l'user dans localstorage
-      axios.get(`http://localhost:3000/auth/${userId}`, // Appel de l'API pour récupérer les informations de l'user
-          {
-            headers: { // headers de la requete dont le token d'authentification
-              'Content-Type': 'application/json',
-              'Authorization': `Bearer ${this.$token}`
-            }
-          }
-      )
-      .then(res => {
-                this.user = res.data; // récupération dans la réponse des data de l'user, stockés dans la variable user
-            });
-    }
-  },
-    deleteUser(){ // fonction de suppression d'un utilisateur
-      const userId = this.$user.id; // récupération de l'id de l'user dans localstorage
-      axios.delete(`http://localhost:3000/auth/${userId}`, // Appel de l'API pour supprimer l'user
-          {
-            headers: { // headers de la requete dont le token d'authentification
-              'Content-Type': 'application/json',
-              'Authorization': `Bearer ${this.$token}`
-            }
-          }
-      )
-      .then(location.href = "/"); // Après suppression, redirection vers la page d'acceuil
-    }
+          deleteUser(){ // fonction de suppression d'un utilisateur
+                const userId = this.$user.userId; // récupération de l'id de l'user dans localstorage
+                console.log(this.$user.id)
+                axios.delete(`http://localhost:3000/auth/${userId}`, // Appel de l'API pour supprimer l'user
+                    {
+                      headers: { // headers de la requete dont le token d'authentification
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${this.$token}`
+                      }
+                    }
+                )
+                .then(
+                localStorage.removeItem('user'), // Suppression de l'user dans le localStorage
+                location.href = "/"); // Après suppression, redirection vers la page d'acceuil
+              }
+  }
+    
 }
 
 </script>
@@ -43,7 +33,7 @@ export default { // création de l'objet à exporter
 <template>
 <div class="account__container">
   <img class="home__logo" src="../assets/icon-above-font.svg" alt="Logo de l'entreprise Groupomania"/>
-  <h1 class="account__name">{{ user.prenom }} {{ user.nom }}</h1> <!-- Récupération des prénom et nom dans la variable user -->
+  <h1 class="account__name">{{ this.$user.prenom }} {{ this.$user.nom }}</h1> <!-- Récupération des prénom et nom dans la variable user -->
   <div class="account__delete" @click="deleteUser()">Supprimer mon compte</div> <!-- au clic, appel de la fonction de suppression de l'user -->
 </div>
 </template>
@@ -59,6 +49,14 @@ a {
 body {
     font-family: Roboto;
     margin: 0px;
+}
+
+.home__logo {
+    display: block;
+    margin: auto;
+    width: 80%;
+    max-width: 500px;
+    margin-top: -50px;
 }
 
 .account {
@@ -88,7 +86,6 @@ body {
         width: fit-content;
         margin: auto;
         margin-top: 40px;
-        margin-bottom: 100px;
         &:hover {
             background-color: lighten($color: $primary-color, $amount: 10);
             box-shadow: 0px 0px 4px 0px #6f7070;
