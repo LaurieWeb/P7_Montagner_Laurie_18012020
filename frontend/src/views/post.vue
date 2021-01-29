@@ -1,9 +1,11 @@
 <template>
   <div class="home">
-    <Header/>
-    <onepost/>
-    <comm/>
-    <Footer/> <!-- Ajouts des composants dans le html-->
+    <Header role="banner"/>
+    <div role="main">
+        <onepost/>
+        <comm/>
+    </div>
+    <Footer role="contentinfo"/> <!-- Ajouts des composants dans le html-->
   </div>
 </template>
 

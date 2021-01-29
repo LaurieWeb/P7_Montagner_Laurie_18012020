@@ -1,8 +1,8 @@
 <template>
-  <div class="home">
-    <router-link to="/"><img class="home__logo" src="../assets/icon-above-font.svg" alt="Logo de l'entreprise Groupomania"></router-link>
+  <div role="main" class="home">
+    <router-link to="/"><img class="home__logo" aria-label="Page d'acceuil du réseau Groupomania" src="../assets/icon-above-font.svg" alt="Logo de l'entreprise Groupomania"></router-link>
     <div class="home__buttons">
-        <div class="home__buttons__signup" @click="visiblesignup = !visible, visiblelogin = visible">S'inscrire</div><!-- Au click, la variable visiblesignup devient true tandis que la variable visiblelogin devient false-->
+        <div class="home__buttons__signup" @click="visiblesignup = !visible, visiblelogin = visible" role="heading" aria-level="1">S'inscrire</div><!-- Au click, la variable visiblesignup devient true tandis que la variable visiblelogin devient false-->
         <div class="home__buttons__login" @click="visiblelogin = !visible, visiblesignup = visible">Se connecter</div> <!-- Au click, la variable visiblelogin devient true tandis que la variable visiblesignup devient false-->
     </div>
     <signup v-if="visiblesignup"/>

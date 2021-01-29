@@ -1,8 +1,8 @@
 <template>
   <div class="home">
-    <Header/>
-    <account/>
-    <Footer/> <!-- Ajouts des composants dans le html-->
+    <Header role="banner"/>
+    <account role="main"/>
+    <Footer role="contentinfo"/> <!-- Ajouts des composants dans le html-->
   </div>
 </template>
 
