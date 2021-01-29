@@ -61,7 +61,7 @@ export default { // création de l'objet à exporter
 </script>
 
 <style lang="scss">
-$primary-color: #ff0000;
+$primary-color: #ec0000;
 $secondary-color: #ffd5d7;
 
 body {

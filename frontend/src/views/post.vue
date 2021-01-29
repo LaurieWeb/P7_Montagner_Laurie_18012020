@@ -47,5 +47,6 @@ export default { // création de l'objet à exporter
 <style lang="scss">
 a {
     text-decoration: none;
+    color: black;
 }
 </style>

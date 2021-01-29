@@ -11,7 +11,7 @@ export default { // création de l'objet à exporter
 </template>
 
 <style lang="scss">
-$primary-color: #ff0000;
+$primary-color: #ec0000;
 $secondary-color: #ffd5d7;
 
 a {
@@ -30,9 +30,6 @@ footer {
     text-align: center;
     padding: 2px;
     box-sizing: border-box;
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    left: 0;
+    margin-top: 50px;
 }
 </style>

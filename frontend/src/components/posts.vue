@@ -7,6 +7,7 @@ export default { // création de l'objet à exporter
         return {
             posts: [], // déclaration de la variable posts dans le data store
         }
+        
     },
     mounted() {
             this.getAllPost(); // Appel de la fonction getAllPost dès que la page est mounted, appelé juste après que l’instance a été montée
@@ -22,8 +23,13 @@ export default { // création de l'objet à exporter
                 }
             )
             .then(res => {
-                this.posts = res.data; // récupération dans la réponse des data de tous les posts, stockés dans le tableau posts
+                this.posts = res.data; // récupération dans la réponse des data de tous les posts, stockés dans le tableau posts                
             })
+        },
+        dateLocale(date){ // fonction de formatage de la date
+            const dateFormat = new Date(date); // création d'une Date
+            const options = { year: 'numeric', month: 'long', day: 'numeric'};  // Option du formatage
+            return dateFormat.toLocaleDateString('fr-FR', options); // Retour de la date formatée
         }
     }
 }
@@ -31,18 +37,18 @@ export default { // création de l'objet à exporter
 
 <template>
 <div>
-    <router-link to='{ name: "Post", params: { id: post.id } }' v-for="post in posts" :key="post.id"><!-- lien routeur vers la page post avec pour paramètres l'id du post ; balise et son contenant bouclée pour chaque post trouvés dans la table posts de la BDD, dont la clé est leur id -->
+    <router-link :to="{ name: 'Post', params: { id: post.id }}" v-for="post in posts" :key="post.id"><!-- lien routeur vers la page post avec pour paramètres l'id du post ; balise et son contenant bouclée pour chaque posts trouvés dans la table posts de la BDD, dont la clé est leur id -->
         <div class="post__container">
             <div class="post">
             <div class="post__header">
                 <h2 class="post__title">{{post.title}}</h2><!-- Récupération du titre du post-->
                 <p class="post__author"> {{post.prenom}} {{post.nom}}</p><!--Récupération du prénom et du nom de l'auteur du post-->
-                <p class="post__date">{{post.date}}</p><!-- Récupération de la date du post -->
+                <p class="post__date">{{dateLocale(post.date)}}</p><!-- Récupération de la date du post via la fonction de formatage -->
             </div>
                 <img class="post__img" :src="post.imgURL" :alt="post.title"> <!--Récupération de l'url de l'image et de son texte alternatif-->
             </div>
             <div class="post__comm">
-                <router-link to='{ name: "Post", params: { id: post.id } }/#comm'><p class="post__comm__add">Ajouter un commentaire</p></router-link> <!-- Routeur link vers la section d'ajout de commentaire-->
+                <p class="post__comm__add">Ajouter un commentaire</p>
             </div>
         </div>
     </router-link>
@@ -55,6 +61,7 @@ $secondary-color: #ffd5d7;
 
 a {
     text-decoration: none;
+    color: black;
 }
 
 body {
@@ -95,10 +102,11 @@ body {
     }
     &__comm {
         position: relative;
+        margin-bottom: 10px;
         &__add {
             position: absolute;
             right: 0;
-            top: 0;
+            top: 7px;
             margin: 0;
             @media screen and (max-width: 659px) {
                 width: 100%;

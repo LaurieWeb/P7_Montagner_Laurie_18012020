@@ -3,28 +3,38 @@ import axios from 'axios'; // importation du plugin axios pour appel de l'API
 
 export default {
   name: 'addpost', // création de l'objet à exporter
+  data(){
+        return {
+            file: '' // Déclaration de l'objet file
+        }
+        },
   methods: {
+      handleFileUpload(){ // Fonction de gestion de l'ajout de fichier et formatage
+            this.file = this.$refs.file.files[0];
+        },
+
         addPost(){ // fonction d'ajout d'une publication
-            const title = document.getElementById("postTitle").value; // récupération du titre dans l'input d'id postTitle
-            const imgUrl = document.getElementById("postImg").value; // récupération de l'url de l'image dans l'input d'id postImg
-            let date = new Date(); // Récupération de la date du jour
-            let dateLocale = date.toLocaleString('fr-FR',{day: 'numeric', month: 'numeric', year: 'numeric'}); // Mise en forme de la date
+
+            let formData = new FormData(); // Formatage du formData 
+            formData.append('file', this.file); // AJout du fichier au ForData
+            formData.append('title', document.getElementById("postTitle").value) // Ajout du titre au FormData
             axios.post(`http://localhost:3000/posts/`, // Appel de l'API pour envoyer la publication
-                    {
-                        userId: this.$user.id, // Récupération de l'id de l'user dans localstorage et envoie
-                        title, // Envoi du titre
-                        imgUrl, // Envoi de l'url de l'image
-                        dateLocale // Envoi de la date
-                    },
+                    formData,
                     {
                         headers: { // headers de la requete dont le token d'authentification
-                            'Content-Type': 'application/json',
+                            'Content-Type': 'multipart/form-data',
                             'Authorization': `Bearer ${this.$token}`
                         }
                     }
-                )
-                .then(document.location.reload()) // Après ajout, rafraichissement de la page
-                     }   
+                    ).then(res => {
+                        if(res.status === 201) { // Requete réussie
+                            document.location.reload();// Après suppression, redirection vers la page feed
+                        }})
+                    .catch(function(){
+                    console.log('Une erreur est survenue.');
+                    });
+                 }
+            
            }
 }
 
@@ -33,20 +43,20 @@ export default {
 <template>
      <div class="addpost__container">
     <h1 class="addpost__title">Partager un gif</h1>
-    <form class="addpost">
+    <form class="addpost" @submit.prevent="addPost()"><!-- Au clic, appel de la fonction addPost-->
       <div class="addpost__form">
-        <input id="postTitle" type="text" class="addpost__form__title" formControlName="title" placeholder="Donnez un titre à votre gif !" maxlength = "50" required>
+        <input aria-label="Ajouter un titre" pattern="[A-Za-zÀ-ÖØ-öø-ÿ0-9' .!?-]+$" id="postTitle" type="text" class="addpost__form__title" formControlName="title" placeholder="Donnez un titre à votre gif !" minlength="3" maxlength = "80" required><!-- Input contenant les validations d'entrées de type RegEx, longueur min et max-->
       </div>
       <div class="addpost__form">
-        <input id="postImg" class="addpost__form__img" type="file" accept="image/*" required>
+        <input aria-label="Ajouter une image" id="postImg" name="file" class="addpost__form__img" type="file" ref="file" accept="image/*" v-on:change="handleFileUpload()" required><!-- Input contenant les validation d'entrées de type RegEx, longueur min et max + appel de la fonction handleFileUpload dès changement dans l'input-->
       </div>
-      <button class="addpost__form__button" @submit.prevent="addPost()">Partager</button><!-- Au clic, appel de la fonction addPost-->
+      <button class="addpost__form__button">Partager</button>
     </form>
   </div>
 </template>
 
 <style lang="scss">
-$primary-color: #ff0000;
+$primary-color: #ec0000;
 $secondary-color: #ffd5d7;
 
 a {

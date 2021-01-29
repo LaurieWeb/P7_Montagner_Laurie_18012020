@@ -3,11 +3,11 @@ const express = require('express');
 const app = express(); // Mise en fonctionnement de Express
 const bodyParser = require('body-parser');
 var cors = require('cors') // Pour autoriser le cross-origin des serveurs
-app.use(cors()) 
+app.use(cors()); // Utilisation du Cross Origin Ressource Sharing
 
 /****** Déclaration des routes *********/
 const userRoutes = require('./routes/user');
-//const postsRoutes = require('./routes/posts');
+const postsRoutes = require('./routes/posts');
 const path = require('path');
 
 /*********** Déclaration des Headers ******/
@@ -23,7 +23,7 @@ app.use(bodyParser.json());
 
 /******* Déclaration des fichiers routes *********/ 
 app.use('/auth', userRoutes);
-//app.use('/api/posts', postsRoutes);
+app.use('/posts', postsRoutes);
 app.use('/images', express.static(path.join(__dirname, 'images')));
 
 /********** Envoi de la requête *********/

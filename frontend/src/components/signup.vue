@@ -2,20 +2,20 @@
   <div>
       <form class="signupForm" @submit.prevent="signup()"> <!-- Au clic sur le bouton submit, appel de la fonction signup -->
           <div class="form-group">
-            <label class="form-label" for="Nom">Nom</label>
-            <input type="text" class="form-control" id="nom" formControlName="nom" required>
+            <label class="form-label" for="nom">Nom</label>
+            <input type="text" pattern="[A-Za-zÀ-ÖØ-öø-ÿ' ._-]+$" minlength="2" maxlength="40" class="form-control" id="nom" formControlName="nom" required><!-- Inputs contenant les validations d'entrées de type RegEx, longueur min et max-->
           </div>
           <div class="form-group">
-            <label class="form-label" for="Prenom">Prénom</label>
-            <input type="text" class="form-control" id="prenom" formControlName="prenom" required>
+            <label class="form-label" for="prenom">Prénom</label>
+            <input type="text" pattern="[A-Za-zÀ-ÖØ-öø-ÿ' ._-]+$" minlength="2" maxlength="40" class="form-control" id="prenom" formControlName="prenom" required>
           </div>
           <div class="form-group">
             <label class="form-label" for="email">E-mail</label>
-            <input type="email" class="form-control" id="email" formControlName="email" required>
+            <input type="email" class="form-control" id="email" minlength="2" maxlength="40" formControlName="email" required>
           </div>
           <div class="form-group">
             <label class="form-label" for="password">Mot de passe</label>
-            <input type="password" class="form-control" id="password" formControlName="password" required>
+            <input type="password" minlength="2" maxlength="40" class="form-control" id="password" formControlName="password" required>
           </div>
           <button class="form__button">Inscription</button>
     </form>
@@ -69,7 +69,7 @@ export default { // création de l'objet à exporter
 </script>
 
 <style lang="scss">
-$primary-color: #ff0000;
+$primary-color: #ec0000;
 $secondary-color: #ffd5d7;
 
 .home__logo {

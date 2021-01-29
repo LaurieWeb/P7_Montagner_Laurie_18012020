@@ -5,14 +5,29 @@ export default { // création de l'objet à exporter
   name: 'account',
   data(){
         return{
-            user: [] // déclaration de la variable user dans le data store
+            users: [], // déclaration de la variable user dans le data store
+            NULL: null // déclaration de NULL pour le v-if
         }
     },
+      created (){
+            this.getOneUser(); // Appel de la fonction getOnePost dès que la page est created
+        },
   methods: {
+          getOneUser() {
+             axios.get(`http://localhost:3000/auth`, // Appel de l'API pour récupérer les commentaires du post
+                {
+                    headers: { // headers de la requete dont le token d'authentification
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${this.$token}`
+                    }
+                }
+            )
+            .then(res => {
+                this.users = res.data; // récupération dans la réponse des data de tous les commentaires, stockés dans le tableau comms
+            });
+          },
           deleteUser(){ // fonction de suppression d'un utilisateur
-                const userId = this.$user.userId; // récupération de l'id de l'user dans localstorage
-                console.log(this.$user.id)
-                axios.delete(`http://localhost:3000/auth/${userId}`, // Appel de l'API pour supprimer l'user
+                axios.delete(`http://localhost:3000/auth`, // Appel de l'API pour supprimer l'user
                     {
                       headers: { // headers de la requete dont le token d'authentification
                         'Content-Type': 'application/json',
@@ -32,18 +47,27 @@ export default { // création de l'objet à exporter
 
 <template>
 <div class="account__container">
-  <img class="home__logo" src="../assets/icon-above-font.svg" alt="Logo de l'entreprise Groupomania"/>
-  <h1 class="account__name">{{ this.$user.prenom }} {{ this.$user.nom }}</h1> <!-- Récupération des prénom et nom dans la variable user -->
+  <img class="home__logo" src="../assets/icon-above-font.svg" alt="Grand logo de l'entreprise Groupomania"/>
+  <div v-if="users[0]">
+        <h1 class="account__name">{{ this.users[0].prenom }} {{ this.users[0].nom }}</h1> <!-- Récupération des prénom et nom dans la variable user -->
+        <div v-if="users[0].id!=NULL" class="account__post"><!-- Si la première ligne ne contient pas d'id de post, il n'y a donc pas de publication, cette section ne s'affiche pas-->
+                    <h2 class="account__post__title">Mes publications</h2>
+                    <div v-for="user in users" :key="user.id"> <!-- Pour chaque occurence dans le tableau users, répéter la div sur la base de user.id-->
+                    <router-link :to="{ name: 'Post', params: { id: user.id }}" class="account__post__link">{{ user.title }}</router-link> <!-- Lien routeur vers le post à l'id correspondant-->
+                    </div>
+        </div>
+  </div>
   <div class="account__delete" @click="deleteUser()">Supprimer mon compte</div> <!-- au clic, appel de la fonction de suppression de l'user -->
 </div>
 </template>
 
 <style lang="scss">
-$primary-color: #ff0000;
+$primary-color: #ec0000;
 $secondary-color: #ffd5d7;
 
 a {
     text-decoration: none;
+    color: black;
 }
 
 body {
@@ -69,12 +93,29 @@ body {
     &__name {
         text-align: center;
         margin-top: 20px;
-        margin-bottom: 20px;
+        margin-bottom: 50px;
+    }
+    &__post {
+        width: 80%;
+        max-width: 500px;
+        margin: auto;
+        &__link {
+            display: block;
+            width: 100%;
+            background-color: $secondary-color;
+            border-radius: 15px;
+            padding: 15px;
+            box-sizing: border-box;
+            margin-bottom: 5px;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+        }
     }
     &__delete {
         display: block;
         text-align: center;
-        background-color: #ff0000;
+        background-color: $primary-color;
         padding: 5px;
         padding-right: 15px;
         padding-left: 15px;

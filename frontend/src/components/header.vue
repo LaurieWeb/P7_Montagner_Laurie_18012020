@@ -1,6 +1,6 @@
 <template>
     <header>
-        <router-link to='/feed' id="header__logo"><img id="header__logo" src="../assets/icon-left-font.png" alt="Logo de l'entreprise Groupomania"></router-link><!-- Lien routeur vers le feed lorsque l'on clique sur le logo de Groupomania-->
+        <router-link to='/feed' id="header__logo"><img class="header__logo" src="../assets/icon-left-font.png" alt="Logo de l'entreprise Groupomania"></router-link><!-- Lien routeur vers le feed lorsque l'on clique sur le logo de Groupomania-->
             <nav id="navigation">
                 <router-link to='/myaccount' class="boutonnav">Mon compte</router-link> <!-- Lien routeur vers la page Mon Compte-->
                 <div class="boutonnav__logout" @click="deconnexion()">Déconnexion</div><!-- Au clic, appel de la fonction deconnexion-->
@@ -13,7 +13,7 @@ export default { // création de l'objet à exporter
   name: 'Header',
   methods: {
         deconnexion(){ // Fonction de déconnexion
-            localStorage.removeItem('user'); // SUppression de l'user dans le localStorage
+            localStorage.removeItem('user'); // Suppression de l'user dans le localStorage
             location.href = "/"; // Redirection vers la page d'accueil de connexion
         }
     }
@@ -51,6 +51,11 @@ header {
     }
 }
 
+.header__logo {
+    width: 100%;
+    min-width: 150px;
+    max-width: 300px;
+}
 #header__logo {
 	grid-area: logo;
     width: 100%;
