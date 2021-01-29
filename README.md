@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 # P7 - Groupomania - Créez un réseau social d’entreprise
-=======
-# P7 - Groupomania - Création d'une application fullstack
->>>>>>> main
 
 ## Préparation de la base de donnée
 
