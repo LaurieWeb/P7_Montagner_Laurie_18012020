@@ -3,7 +3,7 @@
         <div class="comm__write">
             <h2 class="comm__write__title">Commenter la publication</h2>
             <form @submit.prevent="addComm()" id="commForm" class="comm__block"><!-- Au clic sur le bouton submit, appel de la fonction addComm -->
-                <input aria-label="Ecrire un commentaire" pattern="[A-Za-zÀ-ÖØ-öø-ÿ0-9' .!?()-]+$" id="new__comm" class="comm__form" name="textarea" placeholder="Ecrivez ici votre commentaire" minlength="3" maxlength="280"><!-- Input contenant les validation d'entrées de type RegEx, longueur min et max-->
+                <input aria-label="Ecrire un commentaire" pattern="[A-Za-zÀ-ÖØ-öø-ÿ0-9' .:;!?()-]+$" id="new__comm" class="comm__form" name="textarea" placeholder="Ecrivez ici votre commentaire" minlength="3" maxlength="280"><!-- Input contenant les validation d'entrées de type RegEx, longueur min et max-->
                 <button type="submit" name="button" class="comm__submit">Publier</button>
             </form>
         </div>

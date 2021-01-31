@@ -45,7 +45,7 @@ export default {
     <h1 class="addpost__title">Partager un gif</h1>
     <form class="addpost" @submit.prevent="addPost()"><!-- Au clic, appel de la fonction addPost-->
       <div class="addpost__form">
-        <input aria-label="Ajouter un titre" pattern="[A-Za-zÀ-ÖØ-öø-ÿ0-9' .!?-]+$" id="postTitle" type="text" class="addpost__form__title" formControlName="title" placeholder="Donnez un titre à votre gif !" minlength="3" maxlength = "80" required><!-- Input contenant les validations d'entrées de type RegEx, longueur min et max-->
+        <input aria-label="Ajouter un titre" pattern="[A-Za-zÀ-ÖØ-öø-ÿ0-9' .:;()!?-]+$" id="postTitle" type="text" class="addpost__form__title" formControlName="title" placeholder="Donnez un titre à votre gif !" minlength="3" maxlength = "80" required><!-- Input contenant les validations d'entrées de type RegEx, longueur min et max-->
       </div>
       <div class="addpost__form">
         <input aria-label="Ajouter une image" id="postImg" name="file" class="addpost__form__img" type="file" ref="file" accept="image/*" v-on:change="handleFileUpload()" required><!-- Input contenant les validation d'entrées de type RegEx, longueur min et max + appel de la fonction handleFileUpload dès changement dans l'input-->
