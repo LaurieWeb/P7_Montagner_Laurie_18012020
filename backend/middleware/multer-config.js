@@ -1,4 +1,4 @@
-var multer = require('multer'); // Gestion des fichiers
+var multer = require('multer'); // Ajout de l'app multer
 
 const MIME_TYPES = {
     'image/jpg': 'jpg',
