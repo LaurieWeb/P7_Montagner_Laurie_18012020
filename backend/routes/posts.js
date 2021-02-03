@@ -7,10 +7,11 @@ const router = express.Router();
 const postsCtrl = require('../controllers/posts');
 const commsCtrl = require('../controllers/comms');
 const auth = require('../middleware/auth');
+const multer = require('../middleware/multer-config');
 
 /********* Déclaration des routes POST ************/
 router.get('/', auth, postsCtrl.getAllPosts);
-router.post('/',  auth, postsCtrl.addPost);
+router.post('/', multer, auth, postsCtrl.addPost);
 router.get('/:id', auth, postsCtrl.getOnePost);
 router.delete('/:id', auth, postsCtrl.deleteOnePost);
 router.get('/user/:id', auth, postsCtrl.deleteVisible);

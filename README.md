@@ -2,7 +2,7 @@
 
 ## Préparation de la base de donnée
 
-* Enregistrer le fichier sauvegarde_groupomania.sql
+* Enregistrer le fichier sauvegarde_groupomania.sql qui se trouve dans ./backend/models
 
 * Démarrer votre client MySQL
 
@@ -13,10 +13,12 @@ mysql Groupomania < sauvegarde_groupomania.sql // sur Linux
 ```
 Veillez à ce que votre fichier sois situé dans le dossier où vous lancez votre terminal, ou donnez le chemin complet pour y accèder.
 
-* Créer un fichier .ENV dans le dossier backend et entrez vos informations de connexion MySQL
+* Créer un fichier .ENV dans le dossier backend et entrez vos informations de connexion MySQL ainsi que votre clé random de token
 ```
 DB_USER=nom_utilisateur_mysql
 DB_PASS=motdepasse_mysql
+
+RANDOM_TOKEN_SECRET=votre_clé_random
 ```
 
 ----------

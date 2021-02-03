@@ -2,6 +2,7 @@
 const bcrypt = require('bcrypt')        // Pour crypter string
 const jwt = require('jsonwebtoken'); // Génère jeton token d'authentification
 var db = require('../db'); // Connexion à la base de données 
+require('dotenv').config(); // Plugin dotenv pour gérer les variables d'environnement
 
 /******** Fonction de création utilisateur *******/
 exports.signup = (req, res, next) => {
@@ -20,8 +21,8 @@ exports.signup = (req, res, next) => {
             db.query(`SELECT * FROM Users WHERE email = '${req.body.email}'`, function (err, result) { // Fonction d'envoi de la requête MySQL à la BDD pour récupérer l'user.id
               return res.status(200).json({ // // Envoi status 200 de requête réussie + token
                 token: jwt.sign( // Création d'un jeton token web JSON
-                  { userId: result[0].id }, // Contenant l'id utilisateur
-                  'RANDOM_TOKEN_SECRET',
+                  { userId: result[0].id, isAdmin: result[0].admin}, // Contenant l'id utilisateur
+                  'process.env.RANDOM_TOKEN_SECRET',
                   { expiresIn: '24h' } // Avec une date d'expiration          
                                )             
                         });
@@ -42,8 +43,8 @@ exports.login = (req, res, next) => {
                       console.log("Utilisateur connecté !");
                       return res.status(200).json({ // Envoi status 200 de requête réussie + token
                         token: jwt.sign( // Création d'un jeton token web JSON
-                          { userId: result[0].id }, // Contenant l'id utilisateur
-                          'RANDOM_TOKEN_SECRET',
+                          { userId: result[0].id, isAdmin: result[0].admin}, // Contenant l'id utilisateur
+                          'process.env.RANDOM_TOKEN_SECRET',
                           { expiresIn: '24h' } // Avec une date d'expiration
                         )
                        });
@@ -56,22 +57,30 @@ exports.login = (req, res, next) => {
 /************ Fonction récupération info utilisateur ***********/
 
 exports.getOneUser = (req, res, next) => {
+  try {
     const token = req.headers.authorization.split(' ')[1]; // Extraire le token du header Authorization de la requête entrante
-    const decodedToken = jwt.verify(token, 'RANDOM_TOKEN_SECRET'); // Fonction qui décode le token
+    const decodedToken = jwt.verify(token, 'process.env.RANDOM_TOKEN_SECRET'); // Fonction qui décode le token
     const userId = decodedToken.userId; // Extraction de l'id utilisateur du token
-  var sql = `SELECT users.nom, users.prenom, posts.id, posts.title FROM users LEFT JOIN posts ON users.id = posts.userId WHERE users.id = ${userId}`; // Requête MySQL
-db.query(sql, function (err, result) { // Fonction d'envoi de la requête MySQL à la BDD
-  if (err) {console.log(err);
-    return res.status(400).json("erreur"); // Gestion d'erreurs
-  } else {
-    return res.status(200).json(result);} // Envoi status 200 de requête réussie + résultat des infos récupérées
-  })
-};
-
-  /********* Fonction suppression utilisateur ******/
-  exports.deleteUser = (req, res, next) => {
-    const token = req.headers.authorization.split(' ')[1]; // Extraire le token du header Authorization de la requête entrante
-    const decodedToken = jwt.verify(token, 'RANDOM_TOKEN_SECRET'); // Fonction qui décode le token
+    var sql = `SELECT users.nom, users.prenom, posts.id, posts.title FROM users LEFT JOIN posts ON users.id = posts.userId WHERE users.id = ${userId}`; // Requête MySQL
+    db.query(sql, function (err, result) { // Fonction d'envoi de la requête MySQL à la BDD
+      if (err) {console.log(err);
+        return res.status(400).json("erreur"); // Gestion d'erreurs
+      } else {
+        return res.status(200).json(result);} // Envoi status 200 de requête réussie + résultat des infos récupérées
+      })
+    }
+  catch {    
+    res.status(401).json({
+    error: new Error('Session invalide') // Gestion d'erreurs
+      })
+    }
+}
+    
+/********* Fonction suppression utilisateur ******/
+ exports.deleteUser = (req, res, next) => {
+   try {
+      const token = req.headers.authorization.split(' ')[1]; // Extraire le token du header Authorization de la requête entrante
+    const decodedToken = jwt.verify(token, 'process.env.RANDOM_TOKEN_SECRET'); // Fonction qui décode le token
     const userId = decodedToken.userId; // Extraction de l'id utilisateur du token
     var sql = `DELETE FROM Users WHERE id="${userId}"`; // Requête MySQL
   db.query(sql, function (err, result) { // Fonction d'envoi de la requête MySQL à la BDD
@@ -82,8 +91,11 @@ db.query(sql, function (err, result) { // Fonction d'envoi de la requête MySQL 
       console.log("Utilisateur supprimé, nombre de lignes modifiées : " + result.affectedRows);
       return res.status(200).json(result); // Envoi status 200 de requête réussie
     }
-      });
+      })
+   }   
+  catch {    
+    res.status(401).json({
+     error: new Error('Session invalide') // Gestion d'erreurs
+        })
+      }
   }
-  
-
-  

@@ -1,9 +1,11 @@
 /***** Ajout d'applications ************/
 const express = require('express');
+const helmet = require("helmet");
 const app = express(); // Mise en fonctionnement de Express
 const bodyParser = require('body-parser');
 var cors = require('cors') // Pour autoriser le cross-origin des serveurs
 app.use(cors()); // Utilisation du Cross Origin Ressource Sharing
+app.use(helmet()); // Ajout de helmet qui sécurise les headers http pour éviter d'exposer des failles Cross Site Scripting
 
 /****** Déclaration des routes *********/
 const userRoutes = require('./routes/user');
