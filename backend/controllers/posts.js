@@ -1,6 +1,6 @@
 /*********** Ajout d'application *********/
 const fs = require('fs'); // Gestionnaire de fichiers
-var db = require('../db'); // Connexion à la base de données 
+var db = require('../models/db'); // Connexion à la base de données 
 const jwt = require('jsonwebtoken');  // Création et vérification de token
 require('dotenv').config(); // Plugin dotenv pour gérer les variables d'environnement
 

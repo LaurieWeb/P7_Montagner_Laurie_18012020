@@ -1,7 +1,7 @@
 /*********** Ajout d'application *********/
 const bcrypt = require('bcrypt')        // Pour crypter string
 const jwt = require('jsonwebtoken'); // Génère jeton token d'authentification
-var db = require('../db'); // Connexion à la base de données 
+var db = require('../models/db'); // Connexion à la base de données 
 require('dotenv').config(); // Plugin dotenv pour gérer les variables d'environnement
 
 /******** Fonction de création utilisateur *******/

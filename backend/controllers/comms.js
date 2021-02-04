@@ -1,36 +1,32 @@
 /*********** Ajout d'application *********/
 const fs = require('fs'); // Gestionnaire de fichiers
-var db = require('../db'); // Connexion à la base de données 
+var db = require('../models/db'); // Connexion à la base de données 
 const jwt = require('jsonwebtoken'); // Création et verification de token
 require('dotenv').config(); // Plugin dotenv pour gérer les variables d'environnement
+const Comms = require("../models/comms-manager"); // Ajout du manager de requêtes SQL suivant l'architecture MVC
 
-/******** Fonction de création d'un commentaire *******/
+/******** Fonction de création d'un commentaire - architecture MVC exemple *******/
 
 exports.addComm = (req, res, next) => {
-  try {
+
     const token = req.headers.authorization.split(' ')[1]; // Extraire le token du header Authorization de la requête entrante
     const decodedToken = jwt.verify(token, process.env.RANDOM_TOKEN_SECRET); // Fonction qui vérifie la validité du token
     const userId = decodedToken.userId; // Extraction de l'id utilisateur du token
     const commContent = req.body.commContent;
-    const commId = req.params.id; // Récupération des variables dans les params
-    db.query(`INSERT INTO comms VALUES (NULL, ?, ?, NOW(), ?)`,  // Requête MySQL préparée
-              [userId, commId, commContent], // Tableau contenant les éléments à ajouter à la requête
-              function (err, result) { // Fonction de récupération des résultats de la requête MySQL à la BDD
-                if (err) {
-                  console.log(err);
-                  return res.status(400).json("erreur"); // Gestion d'erreurs
-                } else {
-                console.log("1 comm inserted");
-                res.status(201).json({ message: "1 comm inserted" }); // Envoi status 201 de requête réussie
-                }
-    }) 
-  }  
-  catch {    
-    res.status(401).json({
-      error: new Error('Session invalide') // Gestion d'erreurs
-    })
-  }
+    const postId = req.params.id; // Récupération des variables dans les params
+    
+    Comms.addComms(userId, postId, commContent, (err, data) => {
+      if (err) {
+          res.status(400).json("erreur")
+      }
+       else {         
+        console.log("1 comm inserted");
+        res.status(201).json({ message: "1 comm inserted" }); // Envoi status 201 de requête réussie
+       }  
+          })
+  
 }
+
 
 /******** Fonction de supression d'un commentaire *******/
 
